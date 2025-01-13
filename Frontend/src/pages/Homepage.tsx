@@ -10,7 +10,7 @@ export const Homepage = () => {
       <div className="w-full max-w-3xl bg-white shadow-md rounded-lg p-6">
         <DiscussionForm />
         <DiscussionList />
-        <PostForm/>
+        <PostForm />
       </div>
     </div>
   );

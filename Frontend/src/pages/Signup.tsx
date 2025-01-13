@@ -1,65 +1,100 @@
 import React from "react";
+import { useForm } from "react-hook-form";
+import styles from "../styles/Signuppage.module.css";
+import { toast } from "react-toastify";
+
+type FormData = {
+  name: string;
+  email: string;
+  password: string;
+};
 
 const SignupPage: React.FC = () => {
+  const {
+    handleSubmit,
+    register,
+    formState: { errors, isSubmitting, isValid },
+  } = useForm<FormData>();
+  const onSubmit = handleSubmit((data) => {
+    console.log(data);
+    toast("Signup successful");
+  });
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-100">
-      <div className="w-full max-w-md bg-white shadow-lg rounded-lg p-8">
-        <h2 className="text-2xl font-bold text-gray-800 text-center mb-6">
-          Sign Up
-        </h2>
-        <form>
-          <div className="mb-4">
-            <label className="block text-gray-600 mb-2" htmlFor="name">
+    <div className={styles.container}>
+      <div className={styles.card}>
+        <h2 className={styles.title}>Sign Up</h2>
+        <form action="/user/signup/withoutgoogle" onSubmit={onSubmit}>
+          <div className={styles.inputGroup}>
+            <label className={styles.label} htmlFor="name">
               Name
             </label>
             <input
+              {...register("name", {
+                required: "Name is required",
+              })}
               type="text"
               id="name"
               placeholder="Enter your name"
-              className="w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className={styles.input}
             />
+            {errors.name && (
+              <p className={styles.error}>{errors.name.message}</p>
+            )}
           </div>
-          <div className="mb-4">
-            <label className="block text-gray-600 mb-2" htmlFor="email">
+          <div className={styles.inputGroup}>
+            <label className={styles.label} htmlFor="email">
               Email
             </label>
             <input
+              {...register("email", {
+                required: "Email is required",
+              })}
               type="email"
               id="email"
               placeholder="Enter your email"
-              className="w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className={styles.input}
             />
+            {errors.email && (
+              <p className={styles.error}>{errors.email.message}</p>
+            )}
           </div>
-          <div className="mb-6">
-            <label className="block text-gray-600 mb-2" htmlFor="password">
+          <div className={styles.inputGroup}>
+            <label className={styles.label} htmlFor="password">
               Password
             </label>
             <input
+              {...register("password", {
+                required: "Password is required",
+              })}
               type="password"
               id="password"
               placeholder="Enter your password"
-              className="w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
-            />
+              className={styles.input}
+            />{" "}
+            {errors.password && (
+              <p className={styles.error}>{errors.password.message}</p>
+            )}
           </div>
           <button
             type="submit"
-            className="w-full bg-blue-500 text-white py-2 px-4 rounded-lg hover:bg-blue-600 mb-4"
+            className={`${styles.submitButton} ${isSubmitting || (!isValid && "opacity-50")}`}
+            disabled={isSubmitting || !isValid}
           >
             Sign Up
           </button>
         </form>
-        <div className="text-center text-gray-600 mb-4">OR</div>
-        <button className="w-full border border-gray-300 py-2 px-4 rounded-lg flex items-center justify-center hover:bg-gray-50">
+        <div className={styles.divider}>OR</div>
+        <button className={styles.googleButton}>
           <img
             src="https://developers.google.com/identity/images/g-logo.png"
             alt="Google"
-            className="w-5 h-5 mr-2"
+            className={styles.googleIcon}
           />
           Sign Up with Google
         </button>
-        <p className="text-center text-gray-600 mt-4">
+        <p className={styles.footerText}>
           Already have an account?{" "}
-          <a href="/login" className="text-blue-500 hover:underline">
+          <a href="/login" className={styles.loginLink}>
             Log in
           </a>
         </p>
