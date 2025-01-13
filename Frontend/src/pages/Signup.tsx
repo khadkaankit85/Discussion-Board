@@ -3,7 +3,8 @@ import { useForm } from "react-hook-form";
 import styles from "../styles/Signuppage.module.css";
 import { toast } from "react-toastify";
 import { backendUrl } from "../../constants.ts";
-import { signupErrorToast } from "../toasts.ts";
+import { errorToast } from "../toasts.ts";
+import { useNavigate } from "react-router-dom";
 
 type FormData = {
   name: string;
@@ -12,6 +13,8 @@ type FormData = {
 };
 
 const SignupPage: React.FC = () => {
+  const navigate = useNavigate();
+
   const {
     handleSubmit,
     register,
@@ -21,12 +24,20 @@ const SignupPage: React.FC = () => {
   const onSubmit = handleSubmit(async (data) => {
     const response = await fetch(`${backendUrl}/user/signup/withoutgoogle`, {
       method: "POST",
+      headers: {
+        "Content-Type": "application/json", // The content type of the request
+      },
       body: JSON.stringify(data),
     });
 
+    const responseData = await response.json();
+
     if (!response.ok) {
-      signupErrorToast();
+      const errormsg = responseData?.errors[0].msg;
+      errorToast(errormsg);
       return;
+    } else if (response.status === 201) {
+      navigate("/home");
     }
 
     toast("Signup successful");

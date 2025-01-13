@@ -3,6 +3,7 @@ import mongoose from "mongoose";
 import dotenv from "dotenv";
 import cors, { CorsOptions } from "cors";
 import { allowedOrigins } from "./constants";
+import bodyParser from "body-parser";
 import {
   signupValidationFunction,
   signupvalidatorChain,
@@ -11,8 +12,10 @@ import {
 dotenv.config();
 
 const app = express();
+
 const corsOptions: CorsOptions = {
   origin: (origin, callback) => {
+    console.log(origin);
     //allow request from no origin
     if (!origin || allowedOrigins.includes(origin)) {
       return callback(null, true);
@@ -22,8 +25,8 @@ const corsOptions: CorsOptions = {
   },
 };
 
-app.use(express.json());
 app.use(cors(corsOptions));
+app.use(bodyParser.json());
 
 main().catch((err) => console.log(err));
 async function main() {
@@ -40,14 +43,18 @@ app.post(
   signupvalidatorChain,
   signupValidationFunction,
   (req: Request, res: Response) => {
-    console.log(req.body);
-    res.status(400).send("hit signup not google button route");
+    res.status(201).json("hit signup not google button route");
   },
 );
 
-app.post("/login/withusernameandpassword", (req: Request, res: Response) => {
-  const body = req.body;
-});
+app.post(
+  "/user/login/withusernameandpassword",
+  (req: Request, res: Response) => {
+    const body = req.body;
+    console.log(body);
+    res.send("logging in");
+  },
+);
 
 app.listen(3000, () => {
   console.log("Server listening on port 3000");

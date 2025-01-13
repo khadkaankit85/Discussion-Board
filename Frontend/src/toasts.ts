@@ -1,7 +1,7 @@
 import { toast } from "react-toastify";
 
-export const signupErrorToast = () => {
-  return toast.error("🦄 Wow so easy!", {
+export const errorToast = (message: string) => {
+  return toast.error(message, {
     position: "top-right",
     autoClose: 5000,
     hideProgressBar: false,
