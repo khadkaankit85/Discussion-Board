@@ -2,6 +2,8 @@ import React from "react";
 import { useForm } from "react-hook-form";
 import styles from "../styles/Signuppage.module.css";
 import { toast } from "react-toastify";
+import { backendUrl } from "../../constants.ts";
+import { signupErrorToast } from "../toasts.ts";
 
 type FormData = {
   name: string;
@@ -15,10 +17,21 @@ const SignupPage: React.FC = () => {
     register,
     formState: { errors, isSubmitting, isValid },
   } = useForm<FormData>();
-  const onSubmit = handleSubmit((data) => {
-    console.log(data);
+
+  const onSubmit = handleSubmit(async (data) => {
+    const response = await fetch(`${backendUrl}/user/signup/withoutgoogle`, {
+      method: "POST",
+      body: JSON.stringify(data),
+    });
+
+    if (!response.ok) {
+      signupErrorToast();
+      return;
+    }
+
     toast("Signup successful");
   });
+
   return (
     <div className={styles.container}>
       <div className={styles.card}>

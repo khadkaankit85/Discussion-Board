@@ -27,15 +27,15 @@ const LoginPage: React.FC = () => {
         <form action="/user/login" onSubmit={onSubmit}>
           <div className={styles.inputGroup}>
             <label className={styles.label} htmlFor="email">
-              Email
+              Username / Email
             </label>
             <input
               {...register("email", {
                 required: "Email is required",
               })}
-              type="email"
+              type="text"
               id="email"
-              placeholder="Enter your email"
+              placeholder="Enter your username/email"
               className={styles.input}
             />
             {errors.email && (
