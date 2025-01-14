@@ -1,7 +1,6 @@
 import React from "react";
 import { useForm } from "react-hook-form";
 import styles from "../styles/Signuppage.module.css";
-import { toast } from "react-toastify";
 import { backendUrl } from "../../constants.ts";
 import { errorToast } from "../toasts.ts";
 import { useNavigate } from "react-router-dom";

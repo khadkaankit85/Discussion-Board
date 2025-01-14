@@ -3,10 +3,6 @@ import styles from "../styles/OTpverification.module.css";
 import { useNavigate, useParams } from "react-router-dom";
 import { backendUrl } from "../../constants";
 
-interface OTPVerificationProps {
-  lastrequest: number;
-}
-
 const OTPVerification = () => {
   const [otp, setOtp] = useState<string>("");
   const [error, setError] = useState<string>("");
