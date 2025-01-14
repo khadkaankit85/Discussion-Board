@@ -8,6 +8,8 @@ import {
   signupValidationFunction,
   signupvalidatorChain,
 } from "./middlewares/validators";
+import { User } from "./schemas/schemas";
+import { check } from "express-validator";
 
 dotenv.config();
 
@@ -15,7 +17,6 @@ const app = express();
 
 const corsOptions: CorsOptions = {
   origin: (origin, callback) => {
-    console.log(origin);
     //allow request from no origin
     if (!origin || allowedOrigins.includes(origin)) {
       return callback(null, true);
@@ -55,6 +56,32 @@ app.post(
     res.send("logging in");
   },
 );
+
+app.get("/user/getotp/:userid", async (req: Request, res: Response) => {
+  const userid = req.params.userid;
+
+  if (!userid) {
+    res.status(400).json("user id is not provided");
+    return;
+  }
+
+  User.findById(userid).then((user) => {
+    if (!user) {
+      res.status(404).json("user not found");
+      return;
+    } else if (user.lastOtpRequest.getTime() + 1 * 60 * 1000 > Date.now()) {
+      res.status(400).json("OTP request too frequent");
+      return;
+    } else {
+      const otp = Math.floor(Math.random() * 900000 + 100000);
+    }
+  });
+});
+
+app.post("/user/verifyotp", async (req: Request, res: Response) => {
+  const { userId, otp } = req.body;
+  console.log(userId, otp);
+});
 
 app.listen(3000, () => {
   console.log("Server listening on port 3000");

@@ -1,6 +1,11 @@
 import React, { useEffect, useState } from "react";
 import styles from "../styles/OTpverification.module.css";
 import { useNavigate, useParams } from "react-router-dom";
+import { backendUrl } from "../../constants";
+
+interface OTPVerificationProps {
+  lastrequest: number;
+}
 
 const OTPVerification = () => {
   const [otp, setOtp] = useState<string>("");
@@ -33,16 +38,20 @@ const OTPVerification = () => {
 
     setIsSubmitting(true);
     setError("");
-
-    // Mock submission logic (replace with actual backend call)
-    setTimeout(() => {
+    try {
+      const response = await fetch(`${backendUrl}/user/verifyotp`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ userId: params.userid, otp }),
+      });
+      console.log(response);
+    } catch (err) {
+      console.log(err);
+    } finally {
       setIsSubmitting(false);
-      if (otp === "123456") {
-        alert("OTP Verified!");
-      } else {
-        setError("Invalid OTP, please try again.");
-      }
-    }, 1000);
+    }
   };
 
   return (

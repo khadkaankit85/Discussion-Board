@@ -13,12 +13,15 @@ const userSchema = new mongoose.Schema({
   password: String,
   role: String,
   discussions: [{ type: mongoose.Schema.Types.ObjectId, ref: "Discussion" }],
+  lastOtpRequest: { type: Date, default: new Date(0) },
+  otp: { type: Number, default: Math.random() * 900000 + 100000 },
 });
 
 const postSchema = new mongoose.Schema({
   body: String,
   discussionId: { type: mongoose.Schema.Types.ObjectId, ref: "Discussion" },
   postedBy: { type: mongoose.Schema.Types.ObjectId, ref: "User" },
+  postedAt: { type: Date, default: Date.now },
 });
 
 const Post = mongoose.model("Post", postSchema);
