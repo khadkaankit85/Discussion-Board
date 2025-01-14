@@ -1,11 +1,10 @@
-export interface Discussion {
-  id: number;
-  title: string;
+export interface Post {
+  _id: number;
+  discussionId: number;
   body: string;
 }
-
-export interface Post {
-  id: number;
-  discussionId: number;
+export interface Discussion {
+  _id: string;
+  title: string;
   body: string;
 }

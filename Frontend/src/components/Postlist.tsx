@@ -1,31 +1,70 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import { backendUrl } from "../../constants";
+import { Post } from "../types/types";
 
 interface PostListProps {
-  discussionId: number;
+  discussionId: string;
+  posts: Post[];
+  setPosts: React.Dispatch<React.SetStateAction<any>>;
 }
+const PostList: React.FC<PostListProps> = ({
+  discussionId,
+  posts,
+  setPosts,
+}) => {
+  const [error, setError] = useState<string | null>(null);
 
-const PostList: React.FC<PostListProps> = ({ discussionId }) => {
-  const posts = [
-    { id: 1, discussionId: 1, body: "This is a post for discussion 1." },
-    { id: 2, discussionId: 1, body: "Another post for discussion 1." },
-    { id: 3, discussionId: 2, body: "This is a post for discussion 2." },
-  ];
+  useEffect(() => {
+    // Function to fetch posts from the backend using fetch
+    const fetchPosts = async () => {
+      try {
+        const res = await fetch(`${backendUrl}/user/actions/findposts`, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ discussionId: discussionId }),
+        });
 
-  const filteredPosts = posts.filter(
-    (post) => post.discussionId === discussionId,
-  );
+        // Check if the response is successful
+        if (!res.ok) {
+          throw new Error("Couldn't fetch posts");
+        }
+
+        // Parse the response as JSON
+        const data = await res.json();
+
+        // Update the posts state with the fetched posts
+        setPosts(data);
+      } catch (err) {
+        // Set error message if the request fails
+        setError("Couldn't fetch posts");
+        console.error("Error fetching posts:", err);
+      }
+    };
+
+    // Fetch posts when the component mounts or discussionId changes
+    if (discussionId) {
+      fetchPosts();
+    }
+  }, [discussionId]);
 
   return (
     <div className="mt-4">
       <h4 className="text-gray-700 font-semibold mb-2">Posts</h4>
-      {filteredPosts.map((post) => (
-        <div
-          key={post.id}
-          className="border border-gray-200 rounded-lg p-2 mb-2 bg-white"
-        >
-          <p className="text-gray-600">{post.body}</p>
-        </div>
-      ))}
+      {error && <p className="text-red-500">{error}</p>}
+      {posts.length > 0 ? (
+        posts.map((post) => (
+          <div
+            key={post._id}
+            className="border border-gray-200 rounded-lg p-2 mb-2 bg-white"
+          >
+            <p className="text-gray-600">{post.body}</p>
+          </div>
+        ))
+      ) : (
+        <p className="text-gray-500">No posts available.</p>
+      )}
     </div>
   );
 };
