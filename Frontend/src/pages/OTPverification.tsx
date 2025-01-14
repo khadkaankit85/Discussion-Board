@@ -39,13 +39,16 @@ const OTPVerification = () => {
     setIsSubmitting(true);
     setError("");
     try {
-      const response = await fetch(`${backendUrl}/user/verifyotp`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
+      const response = await fetch(
+        `${backendUrl}/user/verification/verifyotp`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ userId: params.userid, otp }),
         },
-        body: JSON.stringify({ userId: params.userid, otp }),
-      });
+      );
       console.log(response);
     } catch (err) {
       console.log(err);

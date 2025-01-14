@@ -22,13 +22,16 @@ const SignupPage: React.FC = () => {
   } = useForm<FormData>();
 
   const onSubmit = handleSubmit(async (data) => {
-    const response = await fetch(`${backendUrl}/user/signup/withoutgoogle`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json", // The content type of the request
+    const response = await fetch(
+      `${backendUrl}/user/authentication/signup/withoutgoogle`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
       },
-      body: JSON.stringify(data),
-    });
+    );
 
     const responseData = await response.json();
 

@@ -15,6 +15,7 @@ const userSchema = new mongoose.Schema({
   discussions: [{ type: mongoose.Schema.Types.ObjectId, ref: "Discussion" }],
   lastOtpRequest: { type: Date, default: new Date(0) },
   otp: { type: Number, default: Math.random() * 900000 + 100000 },
+  image: { type: String },
 });
 
 const postSchema = new mongoose.Schema({
