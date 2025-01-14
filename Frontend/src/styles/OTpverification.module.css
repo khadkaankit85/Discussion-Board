@@ -1,0 +1,39 @@
+.container {
+  @apply flex justify-center items-center min-h-screen bg-gray-100;
+}
+
+.formWrapper {
+  @apply bg-white p-8 rounded-lg shadow-lg w-96;
+}
+
+.heading {
+  @apply text-center text-2xl font-semibold mb-6;
+}
+
+.form {
+  @apply flex flex-col space-y-4;
+}
+
+.input {
+  @apply px-4 py-2 border border-gray-300 rounded-lg text-lg focus:outline-none focus:ring-2 focus:ring-blue-500;
+}
+
+.error {
+  @apply text-red-500 text-sm;
+}
+
+.button {
+  @apply w-full py-2 bg-blue-500 text-white rounded-lg font-semibold hover:bg-blue-600 disabled:bg-blue-300;
+}
+
+.resendWrapper {
+  @apply mt-4 text-center;
+}
+
+.resendText {
+  @apply text-sm text-gray-600;
+}
+
+.resendLink {
+  @apply text-blue-500 hover:text-blue-700;
+}

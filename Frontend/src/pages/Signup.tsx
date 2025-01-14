@@ -37,10 +37,8 @@ const SignupPage: React.FC = () => {
       errorToast(errormsg);
       return;
     } else if (response.status === 201) {
-      navigate("/home");
+      navigate("/signup/otpverification/10");
     }
-
-    toast("Signup successful");
   });
 
   return (
