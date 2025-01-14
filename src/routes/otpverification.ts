@@ -3,15 +3,15 @@ import { User } from "../schemas/schemas";
 import { sendOtp } from "../utils/sendOtp";
 const router = Router();
 
-router.get("/getotp/:userid", async (req: Request, res: Response) => {
-  const userid = req.params.userid;
+router.post("/getotp", async (req: Request, res: Response) => {
+  const { userId } = req.body;
 
-  if (!userid) {
+  if (!userId) {
     res.status(400).json("user id is not provided");
     return;
   }
 
-  User.findById(userid).then((user) => {
+  User.findById({ _id: userId }).then((user) => {
     if (!user) {
       res.status(404).json("user not found");
       return;
@@ -23,7 +23,7 @@ router.get("/getotp/:userid", async (req: Request, res: Response) => {
       try {
         sendOtp(otp, user.email);
       } catch (err) {
-        res.status(500).json("Error sending OTP");
+        res.status(501).json("Error sending OTP");
         return;
       }
       user.otp = otp;

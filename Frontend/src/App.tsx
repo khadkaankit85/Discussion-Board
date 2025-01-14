@@ -13,7 +13,7 @@ export default function App() {
         <Route path="/home" element={<Homepage />} />
         <Route path="/login" element={<LoginPage />} />
         <Route
-          path="/signup/otpverification/:userid"
+          path="/signup/otpverification/:username/:userid"
           element={<OTPVerification />}
         />
         <Route path="/signup" element={<SignupPage />} />

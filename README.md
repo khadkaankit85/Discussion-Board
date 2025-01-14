@@ -60,6 +60,15 @@ The request should be a **JSON object** with the following fields:
 
 ---
 
+2. POST request to request OTP
+
+route is :/user/verification/getotp
+method is :POST
+req body:{
+userId
+}
+sends 201 status code with otp in mail
+
 ## Example Request
 
 To test the signup route, you can use the following `curl` command or equivalent HTTP client:

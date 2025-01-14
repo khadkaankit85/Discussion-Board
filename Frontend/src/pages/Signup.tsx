@@ -35,11 +35,13 @@ const SignupPage: React.FC = () => {
     const responseData = await response.json();
 
     if (!response.ok) {
-      const errormsg = responseData?.errors[0].msg;
-      errorToast(errormsg);
+      const errormsg = responseData?.errors?.[0]?.msg; // Optional chaining to safely access the first error message
+      errorToast(errormsg || responseData || "An unknown error occurred.");
       return;
     } else if (response.status === 201) {
-      navigate("/signup/otpverification/10");
+      const id = responseData._id;
+      const username = responseData.email.split("@")[0];
+      navigate(`/signup/otpverification/${username}/${id}`);
     }
   });
 

@@ -9,7 +9,7 @@ const discussionSchema = new mongoose.Schema({
 
 const userSchema = new mongoose.Schema({
   name: { required: true, type: String },
-  email: { required: true, type: String },
+  email: { required: true, type: String, unique: true },
   password: { required: true, type: String },
   role: { required: true, type: String },
   discussions: [{ type: mongoose.Schema.Types.ObjectId, ref: "Discussion" }],

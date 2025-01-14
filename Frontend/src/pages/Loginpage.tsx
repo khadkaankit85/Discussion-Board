@@ -2,6 +2,7 @@ import React from "react";
 import { useForm } from "react-hook-form";
 import styles from "../styles/Signuppage.module.css";
 import { toast } from "react-toastify";
+import { backendUrl } from "../../constants";
 
 type FormData = {
   email: string;
@@ -15,9 +16,22 @@ const LoginPage: React.FC = () => {
     formState: { errors, isSubmitting, isValid },
   } = useForm<FormData>();
 
-  const onSubmit = handleSubmit((data) => {
-    console.log(data);
-    toast("Login successful");
+  const onSubmit = handleSubmit(async (data) => {
+    const response = await fetch(
+      `${backendUrl}/user/authentication/login/withusernameandpassword`,
+      {
+        body: JSON.stringify(data),
+        method: "POST",
+        credentials: "include",
+      },
+    );
+    const mydata = await response.json();
+
+    if (mydata.ok) {
+      toast.success("Login Successful");
+    } else {
+      toast.error("Invalid credentials");
+    }
   });
 
   return (

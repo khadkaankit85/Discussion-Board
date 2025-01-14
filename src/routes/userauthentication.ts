@@ -4,22 +4,47 @@ import {
   signupvalidatorChain,
 } from "../middlewares/validators";
 import { verifyTokenAsync } from "../utils/jwtvalidation";
+import { User } from "../schemas/schemas";
 const router = Router();
 
 router.post(
   "/signup/withoutgoogle",
   signupvalidatorChain,
   signupValidationFunction,
-  (req: Request, res: Response) => {
-    res.status(201).json("hit signup not google button route");
+  async (req: Request, res: Response) => {
+    const { name, email, password } = req.body;
+
+    try {
+      const user = await User.create({
+        name: name,
+        email: email,
+        password: password,
+        role: "unverified",
+      });
+      res.status(201).json(user);
+    } catch {
+      res
+        .status(400)
+        .json(
+          "couldnt create a new user, maybe you have already used this email",
+        );
+    }
   },
 );
 
-router.post("/login/withusernameandpassword", (req: Request, res: Response) => {
-  const body = req.body;
-  console.log(body);
-  res.send("logging in");
-});
+router.post(
+  "/login/withusernameandpassword",
+  async (req: Request, res: Response) => {
+    const { email, password } = req.body;
+
+    const user = await User.findOne({ email, password });
+    if (!user) {
+      res.status(200).json("invalid credentials");
+    } else {
+      res.send({ data: JSON.stringify(user) });
+    }
+  },
+);
 
 router.post("/loginwithcookie", async (req: Request, res: Response) => {
   const cookie = req.cookies;
