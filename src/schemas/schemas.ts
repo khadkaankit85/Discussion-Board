@@ -2,8 +2,12 @@ import mongoose from "mongoose";
 
 const discussionSchema = new mongoose.Schema({
   title: { required: true, type: String },
-  body: { required: true, type: String },
-  postedby: { type: mongoose.Schema.Types.ObjectId, ref: "User" },
+  discussionBody: { required: true, type: String },
+  postedby: {
+    required: true,
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "User",
+  },
   posts: [{ type: mongoose.Schema.Types.ObjectId, ref: "Post" }],
 });
 
