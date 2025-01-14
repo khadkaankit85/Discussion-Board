@@ -9,6 +9,7 @@ export const Homepage = () => {
   const [isLoading, setIsLoading] = useState(true);
   const navigate = useNavigate();
 
+  /*
   useEffect(() => {
     async function loginWithCookie() {
       try {
@@ -36,9 +37,11 @@ export const Homepage = () => {
 
     loginWithCookie();
   }, [backendUrl, navigate]);
+
   if (isLoading) {
     return <p></p>;
   }
+  */
 
   return (
     <div className="min-h-screen bg-gray-100 flex flex-col items-center py-8">
