@@ -6,6 +6,7 @@ import { allowedOrigins } from "./constants";
 import bodyParser from "body-parser";
 import otpRouter from "./routes/otpverification";
 import userAuthenticationRouter from "./routes/userauthentication";
+import userActionRouter from "./routes/useractions";
 
 dotenv.config();
 
@@ -34,6 +35,7 @@ async function main() {
 
 app.use("/user/verification", otpRouter);
 app.use("/user/authentication", userAuthenticationRouter);
+app.use("/user/actions/", userActionRouter);
 
 app.get("/", (_req, res) => {
   res.send("Hello from the server!");
