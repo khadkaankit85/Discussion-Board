@@ -10,6 +10,7 @@ import {
 } from "./middlewares/validators";
 import { User } from "./schemas/schemas";
 import { check } from "express-validator";
+import { sendOtp } from "./utils/sendOtp";
 
 dotenv.config();
 
@@ -74,6 +75,16 @@ app.get("/user/getotp/:userid", async (req: Request, res: Response) => {
       return;
     } else {
       const otp = Math.floor(Math.random() * 900000 + 100000);
+      try {
+        sendOtp(otp, user.email);
+      } catch (err) {
+        res.status(500).json("Error sending OTP");
+        return;
+      }
+      user.otp = otp;
+      user.lastOtpRequest = new Date();
+      user.save();
+      res.status(200).json("OTP sent successfully");
     }
   });
 });
