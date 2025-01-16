@@ -4,6 +4,12 @@ import PostList from "./Postlist";
 import PostForm from "./Postform";
 import { Discussion, Post } from "../types/types";
 
+import before_liked from "./../assets/like_unliked.png";
+import liked from "./../assets/like_liked.png";
+
+import before_dislike from "./../assets/dislike_undisliked.png";
+import disliked from "./../assets/dislike_disliked.png";
+
 interface DiscussionListProps {
   discussions: Discussion[];
   setDiscussions: (discussions: Discussion[]) => void;
@@ -16,6 +22,42 @@ const DiscussionList = ({
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
   const [posts, setPosts] = useState<Post[]>([]);
+
+  const [likedDiscussions, setLikedDiscussions] = useState<string[]>([]);
+  const [dislikedDiscussions, setDislikedDiscussions] = useState<string[]>([]);
+
+  //if user clicks on like button
+  const handleLike = (discussionId: string) => {
+    //if it was already liked then unlike it
+    if (likedDiscussions.includes(discussionId)) {
+      setLikedDiscussions(likedDiscussions.filter((id) => id !== discussionId));
+    } else {
+      //if it was disliked then like it
+      if (dislikedDiscussions.includes(discussionId)) {
+        setDislikedDiscussions(
+          dislikedDiscussions.filter((id) => id !== discussionId),
+        );
+      }
+      setLikedDiscussions([...likedDiscussions, discussionId]);
+    }
+  };
+
+  const handleDislike = (discussionId: string) => {
+    //if it was already disliked
+    if (dislikedDiscussions.includes(discussionId)) {
+      setDislikedDiscussions(
+        dislikedDiscussions.filter((id) => id !== discussionId),
+      );
+    } else {
+      //if it was not disliked then dislike it and remove from liked one
+      setDislikedDiscussions([...dislikedDiscussions, discussionId]);
+      if (likedDiscussions.includes(discussionId)) {
+        setLikedDiscussions(
+          likedDiscussions.filter((id) => id !== discussionId),
+        );
+      }
+    }
+  };
 
   useEffect(() => {
     const fetchDiscussions = async () => {
@@ -63,6 +105,42 @@ const DiscussionList = ({
               {discussion.title}
             </h3>
             <p className="text-gray-600">{discussion.body}</p>
+            <div className="flex items-center gap-4 mt-4 like_dislikeButtons">
+              <button
+                onClick={() => {
+                  handleLike(discussion._id);
+                }}
+              >
+                <p>{likedDiscussions.includes(discussion._id) ? "01" : ""}</p>
+                <img
+                  src={
+                    likedDiscussions.includes(discussion._id)
+                      ? liked
+                      : before_liked
+                  }
+                  width={30}
+                  height={30}
+                />
+              </button>
+              <button
+                onClick={() => {
+                  handleDislike(discussion._id);
+                }}
+              >
+                <p>
+                  {dislikedDiscussions.includes(discussion._id) ? "01 " : ""}
+                </p>
+                <img
+                  src={
+                    dislikedDiscussions.includes(discussion._id)
+                      ? disliked
+                      : before_dislike
+                  }
+                  width={30}
+                  height={30}
+                />
+              </button>
+            </div>
             <PostList
               discussionId={discussion._id}
               posts={posts}

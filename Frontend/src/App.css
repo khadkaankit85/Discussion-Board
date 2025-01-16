@@ -1,1 +1,11 @@
+.like_dislikeButtons > button {
+  @apply flex justify-center min-w-fit items-center w-[3rem] h-[2.3rem] gap-2 border-2 border-black p-2 rounded-lg;
+  @apply text-gray-600;
+}
 
+.like_dislikeButtons > button > p {
+  @apply font-bold;
+}
+.like_dislikeButtons > button:active {
+  @apply bg-gray-300;
+}
