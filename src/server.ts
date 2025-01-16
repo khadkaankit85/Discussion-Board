@@ -7,7 +7,6 @@ import bodyParser from "body-parser";
 import otpRouter from "./routes/otpverification";
 import userAuthenticationRouter from "./routes/userauthentication";
 import userActionRouter from "./routes/useractions";
-
 dotenv.config();
 
 const app = express();
