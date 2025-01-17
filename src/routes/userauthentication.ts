@@ -5,7 +5,12 @@ import {
 } from "../middlewares/validators";
 import { verifyTokenAsync } from "../utils/jwtvalidation";
 import { User } from "../schemas/schemas";
+import GoogleStrategy from "passport-google-oauth20";
+import passport from "passport";
+
 const router = Router();
+
+router.post("/login/withgoogle", (req: Request, res: Response) => {});
 
 router.post(
   "/signup/withoutgoogle",
@@ -46,7 +51,7 @@ router.post(
   },
 );
 
-router.post("/loginwithcookie", async (req: Request, res: Response) => {
+router.post("/login/withcookie", async (req: Request, res: Response) => {
   const cookie = req.cookies;
   if (!cookie || !cookie.gimmeMycookie) {
     res.status(400).json("cookie not found");

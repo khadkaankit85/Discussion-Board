@@ -7,6 +7,9 @@ import bodyParser from "body-parser";
 import otpRouter from "./routes/otpverification";
 import userAuthenticationRouter from "./routes/userauthentication";
 import userActionRouter from "./routes/useractions";
+
+//configurations for passport
+import "./configs/google-passport-config.ts";
 dotenv.config();
 
 const app = express();

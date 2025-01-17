@@ -10,7 +10,6 @@ export const Homepage = () => {
   const [isLoading, setIsLoading] = useState(true);
   const navigate = useNavigate();
 
-  /*
   useEffect(() => {
     async function loginWithCookie() {
       try {
@@ -42,7 +41,6 @@ export const Homepage = () => {
   if (isLoading) {
     return <p></p>;
   }
-  */
 
   const [discussions, setDiscussions] = useState<Discussion[]>([]);
 

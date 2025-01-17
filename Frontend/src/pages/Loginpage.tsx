@@ -30,9 +30,13 @@ const LoginPage: React.FC = () => {
     if (mydata.ok) {
       toast.success("Login Successful");
     } else {
-      toast.error("Invalid credentials");
+      toast.error("Please Check Your Email and Password and Retry");
     }
   });
+
+  const handleLoginWithGoogle = async () => {
+    window.location.href = `${backendUrl}/user/authentication/`;
+  };
 
   return (
     <div className={styles.container}>
@@ -82,7 +86,13 @@ const LoginPage: React.FC = () => {
           </button>
         </form>
         <div className={styles.divider}>OR</div>
-        <button className={styles.googleButton}>
+        <button
+          className={styles.googleButton}
+          onClick={() => {
+            handleLoginWithGoogle;
+          }}
+          type="button"
+        >
           <img
             src="https://developers.google.com/identity/images/g-logo.png"
             alt="Google"
