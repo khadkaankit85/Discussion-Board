@@ -4,7 +4,7 @@ import { Discussion } from "../types/types";
 
 interface DiscussionFormProps {
   discussions: Discussion[];
-  setDiscussions: (discussions: any[]) => void;
+  setDiscussions: (discussions: Discussion[]) => void;
 }
 
 const DiscussionForm = ({
@@ -59,30 +59,39 @@ const DiscussionForm = ({
   };
 
   return (
-    <form className="mb-6" onSubmit={handleSubmit}>
-      <h2 className="text-xl font-semibold text-gray-700 mb-4">
+    <form onSubmit={handleSubmit}>
+      <h2 className="h4 font-weight-bold text-dark mb-4">
         Create a New Discussion
       </h2>
-      {error && <p className="text-red-500 mb-4">{error}</p>}
-      {success && <p className="text-green-500 mb-4">{success}</p>}
-      <input
-        type="text"
-        value={title}
-        onChange={(e) => setTitle(e.target.value)}
-        placeholder="Enter discussion title"
-        className="w-full border border-gray-300 rounded-lg px-4 py-2 mb-4 focus:outline-none focus:ring-2 focus:ring-blue-500"
-      />
-      <textarea
-        value={discussionBody}
-        onChange={(e) => setDiscussionBody(e.target.value)}
-        placeholder="Enter discussion body"
-        className="w-full border border-gray-300 rounded-lg px-4 py-2 mb-4 focus:outline-none focus:ring-2 focus:ring-blue-500"
-        rows={4}
-      ></textarea>
-      <button
-        type="submit"
-        className="w-full bg-blue-500 text-white py-2 px-4 rounded-lg hover:bg-blue-600"
-      >
+
+      {/* Error & Success Messages */}
+      {error && <div className="text-danger mb-4">{error}</div>}
+      {success && <div className="text-success mb-4">{success}</div>}
+
+      {/* Title Input */}
+      <div className="form-group mb-4">
+        <input
+          type="text"
+          value={title}
+          onChange={(e) => setTitle(e.target.value)}
+          placeholder="Enter discussion title"
+          className="form-control"
+        />
+      </div>
+
+      {/* Discussion Body Textarea */}
+      <div className="form-group mb-4">
+        <textarea
+          value={discussionBody}
+          onChange={(e) => setDiscussionBody(e.target.value)}
+          placeholder="Enter discussion body"
+          className="form-control"
+          rows={4}
+        ></textarea>
+      </div>
+
+      {/* Submit Button */}
+      <button type="submit" className="btn btn-primary w-100">
         Submit Discussion
       </button>
     </form>

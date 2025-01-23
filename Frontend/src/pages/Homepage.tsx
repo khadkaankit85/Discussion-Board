@@ -47,11 +47,9 @@ export const Homepage = () => {
   const [discussions, setDiscussions] = useState<Discussion[]>([]);
 
   return (
-    <div className="min-h-screen bg-gray-100 flex flex-col items-center py-8">
-      <h1 className="text-3xl font-bold text-gray-800 mb-8">
-        Discussion Board
-      </h1>
-      <div className="w-full max-w-3xl bg-white shadow-md rounded-lg p-6">
+    <div className="min-vh-100 bg-light d-flex flex-column align-items-center py-4">
+      <h1 className="display-4 fw-bold text-dark mb-4">Discussion Board</h1>
+      <div className="container-lg bg-white shadow rounded p-4">
         <DiscussionForm
           discussions={discussions}
           setDiscussions={setDiscussions}

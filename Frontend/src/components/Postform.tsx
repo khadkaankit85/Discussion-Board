@@ -6,7 +6,7 @@ interface PostFormProps {
   discussionId: string; // ID of the discussion where the post will be added
   userId: string; // ID of the user creating the post
   posts: Post[];
-  setPosts: React.Dispatch<React.SetStateAction<any>>;
+  setPosts: React.Dispatch<React.SetStateAction<Post[]>>;
 }
 
 const PostForm: React.FC<PostFormProps> = ({
@@ -66,16 +66,14 @@ const PostForm: React.FC<PostFormProps> = ({
         value={postContent}
         onChange={(e) => setPostContent(e.target.value)}
         placeholder="Write a post..."
-        className="w-full border border-gray-300 rounded-lg px-4 py-2 mb-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+        className="form-control mb-2"
         rows={2}
         disabled={isSubmitting}
       ></textarea>
-      {error && <p className="text-red-500 text-sm mb-2">{error}</p>}
+      {error && <p className="text-danger text-sm mb-2">{error}</p>}
       <button
         type="submit"
-        className={`bg-blue-500 text-white py-1 px-4 rounded-lg hover:bg-blue-600 ${
-          isSubmitting ? "opacity-50 cursor-not-allowed" : ""
-        }`}
+        className={`btn btn-primary w-100 ${isSubmitting ? "opacity-50 cursor-not-allowed" : ""}`}
         disabled={isSubmitting}
       >
         {isSubmitting ? "Submitting..." : "Add Post"}

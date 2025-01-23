@@ -5,7 +5,7 @@ import { Post } from "../types/types";
 interface PostListProps {
   discussionId: string;
   posts: Post[];
-  setPosts: React.Dispatch<React.SetStateAction<any>>;
+  setPosts: React.Dispatch<React.SetStateAction<Post[]>>;
 }
 const PostList: React.FC<PostListProps> = ({
   discussionId,
@@ -47,23 +47,23 @@ const PostList: React.FC<PostListProps> = ({
     if (discussionId) {
       fetchPosts();
     }
-  }, [discussionId]);
+  });
 
   return (
     <div className="mt-4">
-      <h4 className="text-gray-700 font-semibold mb-2">Posts</h4>
-      {error && <p className="text-red-500">{error}</p>}
+      <h4 className="text-dark font-weight-semibold mb-2">Posts</h4>
+      {error && <p className="text-danger">{error}</p>}
       {posts.length > 0 ? (
         posts.map((post) => (
           <div
             key={post._id}
-            className="border border-gray-200 rounded-lg p-2 mb-2 bg-white"
+            className="border border-light rounded p-2 mb-2 bg-white"
           >
-            <p className="text-gray-600">{post.body}</p>
+            <p className="text-secondary">{post.body}</p>
           </div>
         ))
       ) : (
-        <p className="text-gray-500">No posts available.</p>
+        <p className="text-muted">No posts available.</p>
       )}
     </div>
   );
