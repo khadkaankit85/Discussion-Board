@@ -85,4 +85,12 @@ router.post("/createPost", async (req: Request, res: Response) => {
   }
 });
 
+router.post("/likePost", (req: Request, res: Response) => {
+  res.send("liked the post");
+});
+
+router.post("/liked the discussion", (req: Request, res: Response) => {
+  res.send("liked the discussion");
+});
+
 export default router;

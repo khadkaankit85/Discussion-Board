@@ -20,6 +20,10 @@ const SignupPage: React.FC = () => {
     formState: { errors, isSubmitting, isValid },
   } = useForm<FormData>();
 
+  const handleLoginWithGoogle = async () => {
+    window.open(`${backendUrl}/user/authentication/signup/withgoogle`, "_self");
+  };
+
   const onSubmit = handleSubmit(async (data) => {
     const response = await fetch(
       `${backendUrl}/user/authentication/signup/withoutgoogle`,
@@ -35,7 +39,7 @@ const SignupPage: React.FC = () => {
     const responseData = await response.json();
 
     if (!response.ok) {
-      const errormsg = responseData?.errors?.[0]?.msg; // Optional chaining to safely access the first error message
+      const errormsg = responseData?.errors?.[0]?.msg;
       errorToast(errormsg || responseData || "An unknown error occurred.");
       return;
     } else if (response.status === 201) {
@@ -110,7 +114,11 @@ const SignupPage: React.FC = () => {
           </button>
         </form>
         <div className={styles.divider}>OR</div>
-        <button className={styles.googleButton}>
+        <button
+          className={styles.googleButton}
+          type="button"
+          onClick={handleLoginWithGoogle}
+        >
           <img
             src="https://developers.google.com/identity/images/g-logo.png"
             alt="Google"

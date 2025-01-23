@@ -34,8 +34,11 @@ const LoginPage: React.FC = () => {
     }
   });
 
+  /**
+   * sends a request to the login with google endpoint the user to the login consent screen
+   */
   const handleLoginWithGoogle = async () => {
-    window.location.href = `${backendUrl}/user/authentication/`;
+    window.location.href = `${backendUrl}/user/authentication/login/withgoogle`;
   };
 
   return (
@@ -89,7 +92,7 @@ const LoginPage: React.FC = () => {
         <button
           className={styles.googleButton}
           onClick={() => {
-            handleLoginWithGoogle;
+            handleLoginWithGoogle();
           }}
           type="button"
         >

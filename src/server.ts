@@ -1,4 +1,4 @@
-import express, { Request, Response } from "express";
+import express from "express";
 import mongoose from "mongoose";
 import dotenv from "dotenv";
 import cors, { CorsOptions } from "cors";
@@ -7,9 +7,12 @@ import bodyParser from "body-parser";
 import otpRouter from "./routes/otpverification";
 import userAuthenticationRouter from "./routes/userauthentication";
 import userActionRouter from "./routes/useractions";
+import session from "express-session";
+import getRoutesHandler from "./routes/ExtraRoutes";
 
 //configurations for passport
 import "./configs/google-passport-config.ts";
+import passport from "passport";
 dotenv.config();
 
 const app = express();
@@ -29,6 +32,18 @@ const corsOptions: CorsOptions = {
 app.use(cors(corsOptions));
 app.use(bodyParser.json());
 
+app.use(passport.initialize());
+
+app.set("trust proxy", 1); // trust first proxy
+app.use(
+  session({
+    secret: process.env.JWT_ACCESS_TOKEN_SECRET!,
+    resave: false,
+    saveUninitialized: true,
+    cookie: { secure: true },
+  }),
+);
+
 main().catch((err) => console.log(err));
 async function main() {
   if (!process.env.MONGODB_URL) throw new Error("MONGODB_URL is not defined");
@@ -38,6 +53,8 @@ async function main() {
 app.use("/user/verification", otpRouter);
 app.use("/user/authentication", userAuthenticationRouter);
 app.use("/user/actions/", userActionRouter);
+
+app.use("/routes", getRoutesHandler);
 
 app.get("/", (_req, res) => {
   res.send("Hello from the server!");

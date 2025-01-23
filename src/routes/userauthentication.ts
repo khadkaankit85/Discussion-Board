@@ -1,19 +1,31 @@
-import { CookieOptions, Request, Response, Router } from "express";
+import { Request, Response, Router } from "express";
 import {
   signupValidationFunction,
   signupvalidatorChain,
 } from "../middlewares/validators";
 import { verifyTokenAsync } from "../utils/jwtvalidation";
 import { User } from "../schemas/schemas";
-import GoogleStrategy from "passport-google-oauth20";
 import passport from "passport";
 
 const router = Router();
 
-router.post("/login/withgoogle", (req: Request, res: Response) => {});
+router.get(
+  "/signup/withgoogle",
+  passport.authenticate("google", {
+    scope: ["https://www.googleapis.com/auth/userinfo.profile"],
+    failureRedirect: "/login",
+    successRedirect: "",
+  }),
+);
+
+//callback function that is triggerd on user login with google
+router.get("/withgoogle/failurecallback", (req: Request, res: Response) => {});
+
+//callback function that is triggerd on user login with google
+router.get("/withgoogle/failurecallback", (req: Request, res: Response) => {});
 
 router.post(
-  "/signup/withoutgoogle",
+  "/signup/loginWithPassword",
   signupvalidatorChain,
   signupValidationFunction,
   async (req: Request, res: Response) => {

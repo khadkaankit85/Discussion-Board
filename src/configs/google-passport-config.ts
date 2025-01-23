@@ -13,10 +13,16 @@ passport.use(
     {
       clientID,
       clientSecret,
-      callbackURL: "/auth/google/callback",
+      callbackURL: "/user/authentication/withgoogle/callback",
+      state: true,
     },
+
     (accessToken, refreshToken, profile, done) => {
+      console.log("i just ran dude");
       //save the users's data in the session or database
+      console.log("the profile data is ", profile);
+      console.log("tokens are ", accessToken, refreshToken);
+
       return done(null, profile);
     },
   ),
