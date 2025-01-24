@@ -20,11 +20,24 @@ const router = Router();
 router.get(
   "/withgoogle/callback",
   passport.authenticate("google", {
-    scope: ["https://www.googleapis.com/auth/userinfo.profile"],
+    scope: ["profile", "email"],
     failureRedirect: "/user/authentication/withgoogle/failurecallback",
   }),
   (req: Request, res: Response) => {
-    if (req.user) {
+    //Todo: come back later to change its type
+    const { user } = req as unknown as {
+      user: {
+        token: string;
+      };
+    };
+    const token = user?.token;
+    if (user && token) {
+      res.cookie("gimmemycookie", token, {
+        secure: process.env.NODE_ENV === "production",
+        httpOnly: true,
+        maxAge: 1000 * 60 * 60 * 24,
+        sameSite: "strict",
+      });
       res.redirect(`${frontendUrl}/home`);
     } else {
       res.status(400).json({ message: "unable to login" });
@@ -35,10 +48,7 @@ router.get(
 /*
  *this router is called if a user is authenticated or not
  */
-router.get("/authcheck", (req: Request, res: Response) => {
-  console.log("you are authenticated so i was called");
-  res.status(200).send("OK");
-});
+router.get("/authcheck", (req: Request, res: Response) => {});
 
 /*
  * this function is called when user is not authenticated after login with google oauthFlow
@@ -88,11 +98,10 @@ router.post(
 
 router.post("/login/withcookie", async (req: Request, res: Response) => {
   const cookie = req.cookies;
-  if (!cookie || !cookie.gimmeMycookie) {
+  if (!cookie || !cookie.gimmemycookie) {
     res.status(400).json("cookie not found");
   } else {
     const mycookie = cookie.gimmemycookie;
-
     try {
       const decoded = await verifyTokenAsync(mycookie);
       res.status(200).json("logged in with cookie");

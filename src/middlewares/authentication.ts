@@ -17,7 +17,7 @@ export function authenticate(req: Request, res: Response, next: NextFunction) {
     return;
   }
 
-  verifyTokenAsync(cookie).then((cookie) => {
+  verifyTokenAsync(usertoken).then((cookie) => {
     console.log("cookie verified");
     next();
   });

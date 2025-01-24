@@ -5,6 +5,8 @@ import LoginPage from "./pages/Loginpage";
 import SignupPage from "./pages/Signup";
 import OTPVerification from "./pages/OTPverification";
 import { createContext, useState } from "react";
+import UserProfile from "./pages/UserProfilePage";
+import AuthChecker from "./components/AuthChecker";
 
 export default function App() {
   const [userInformation, setUserInformation] = useState(null);
@@ -20,6 +22,10 @@ export default function App() {
         <Routes>
           <Route path="/" element={<Homepage />} />
           <Route path="/home" element={<Homepage />} />
+          <Route
+            path="/user/profile"
+            element={<AuthChecker Children={UserProfile} role="user" />}
+          />
           <Route path="/login" element={<LoginPage />} />
           <Route
             path="/signup/otpverification/:username/:userid"

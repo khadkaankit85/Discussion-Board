@@ -13,6 +13,7 @@ import getRoutesHandler from "./routes/ExtraRoutes";
 //configurations for passport
 import "./configs/google-passport-config.ts";
 import passport from "passport";
+import cookieParser from "cookie-parser";
 dotenv.config();
 
 const app = express();
@@ -30,6 +31,7 @@ const corsOptions: CorsOptions = {
 };
 
 app.use(cors(corsOptions));
+app.use(cookieParser());
 app.use(bodyParser.json());
 app.set("trust proxy", 1);
 
