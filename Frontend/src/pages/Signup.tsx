@@ -21,7 +21,10 @@ const SignupPage: React.FC = () => {
   } = useForm<FormData>();
 
   const handleLoginWithGoogle = async () => {
-    window.open(`${backendUrl}/user/authentication/signup/withgoogle`, "_self");
+    window.open(
+      `${backendUrl}/user/authentication/withgoogle/callback`,
+      "_self",
+    );
   };
 
   const onSubmit = handleSubmit(async (data) => {

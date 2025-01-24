@@ -6,7 +6,7 @@ interface PostFormProps {
   discussionId: string; // ID of the discussion where the post will be added
   userId: string; // ID of the user creating the post
   posts: Post[];
-  setPosts: React.Dispatch<React.SetStateAction<any>>;
+  setPosts: React.Dispatch<React.SetStateAction<Post[]>>;
 }
 
 const PostForm: React.FC<PostFormProps> = ({

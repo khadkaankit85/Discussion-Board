@@ -4,7 +4,7 @@ import { Discussion } from "../types/types";
 
 interface DiscussionFormProps {
   discussions: Discussion[];
-  setDiscussions: (discussions: any[]) => void;
+  setDiscussions: (discussions: Discussion[]) => void;
 }
 
 const DiscussionForm = ({

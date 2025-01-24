@@ -6,23 +6,46 @@ import {
 import { verifyTokenAsync } from "../utils/jwtvalidation";
 import { User } from "../schemas/schemas";
 import passport from "passport";
+import env from "dotenv";
+import { frontendUrl } from "../constants";
+
+env.config();
 
 const router = Router();
 
+/*
+ * this router handles the main login with google page,
+ * on success, user is redirected to the homescreen and on failure, user is redirected to the route /withgoogle/failuecallback
+ */
 router.get(
-  "/signup/withgoogle",
+  "/withgoogle/callback",
   passport.authenticate("google", {
     scope: ["https://www.googleapis.com/auth/userinfo.profile"],
-    failureRedirect: "/login",
-    successRedirect: "",
+    failureRedirect: "/user/authentication/withgoogle/failurecallback",
   }),
+  (req: Request, res: Response) => {
+    if (req.user) {
+      res.redirect(`${frontendUrl}/home`);
+    } else {
+      res.status(400).json({ message: "unable to login" });
+    }
+  },
 );
 
-//callback function that is triggerd on user login with google
-router.get("/withgoogle/failurecallback", (req: Request, res: Response) => {});
+/*
+ *this router is called if a user is authenticated or not
+ */
+router.get("/authcheck", (req: Request, res: Response) => {
+  console.log("you are authenticated so i was called");
+  res.status(200).send("OK");
+});
 
-//callback function that is triggerd on user login with google
-router.get("/withgoogle/failurecallback", (req: Request, res: Response) => {});
+/*
+ * this function is called when user is not authenticated after login with google oauthFlow
+ */
+router.get("/withgoogle/failurecallback", (req: Request, res: Response) => {
+  console.log("failed so i was called");
+});
 
 router.post(
   "/signup/loginWithPassword",

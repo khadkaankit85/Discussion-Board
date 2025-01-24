@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import DiscussionForm from "../components/Discussionform";
 import DiscussionList from "../components/Discussionlist";
-import PostForm from "../components/Postform";
 import { backendUrl } from "../../constants";
 import { useNavigate } from "react-router-dom";
 import { Discussion } from "../types/types";
@@ -36,13 +35,13 @@ export const Homepage = () => {
     }
 
     loginWithCookie();
-  }, [backendUrl, navigate]);
+  }, [navigate]);
+
+  const [discussions, setDiscussions] = useState<Discussion[]>([]);
 
   if (isLoading) {
     return <p></p>;
   }
-
-  const [discussions, setDiscussions] = useState<Discussion[]>([]);
 
   return (
     <div className="min-h-screen bg-gray-100 flex flex-col items-center py-8">

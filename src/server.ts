@@ -31,10 +31,8 @@ const corsOptions: CorsOptions = {
 
 app.use(cors(corsOptions));
 app.use(bodyParser.json());
+app.set("trust proxy", 1);
 
-app.use(passport.initialize());
-
-app.set("trust proxy", 1); // trust first proxy
 app.use(
   session({
     secret: process.env.JWT_ACCESS_TOKEN_SECRET!,
@@ -43,6 +41,9 @@ app.use(
     cookie: { secure: true },
   }),
 );
+
+app.use(passport.initialize());
+app.use(passport.session());
 
 main().catch((err) => console.log(err));
 async function main() {

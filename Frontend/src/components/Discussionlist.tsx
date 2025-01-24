@@ -80,7 +80,7 @@ const DiscussionList = ({
     };
 
     fetchDiscussions();
-  }, []);
+  }, [setDiscussions]);
 
   if (loading) {
     return <p className="text-gray-500">Loading discussions...</p>;

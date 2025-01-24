@@ -3,7 +3,7 @@ import mongoose from "mongoose";
 const discussionSchema = new mongoose.Schema({
   title: { required: true, type: String },
   discussionBody: { required: true, type: String },
-  postedby: {
+  postedBy: {
     required: true,
     type: mongoose.Schema.Types.ObjectId,
     ref: "User",
@@ -14,6 +14,7 @@ const discussionSchema = new mongoose.Schema({
 const userSchema = new mongoose.Schema({
   name: { required: true, type: String },
   email: { required: true, type: String, unique: true },
+  emailId: { type: String, unique: true },
   password: { required: true, type: String },
   role: { required: true, type: String },
   discussions: [{ type: mongoose.Schema.Types.ObjectId, ref: "Discussion" }],

@@ -5,7 +5,7 @@ import { Post } from "../types/types";
 interface PostListProps {
   discussionId: string;
   posts: Post[];
-  setPosts: React.Dispatch<React.SetStateAction<any>>;
+  setPosts: React.Dispatch<React.SetStateAction<Post[]>>;
 }
 const PostList: React.FC<PostListProps> = ({
   discussionId,
@@ -47,7 +47,7 @@ const PostList: React.FC<PostListProps> = ({
     if (discussionId) {
       fetchPosts();
     }
-  }, [discussionId]);
+  }, [discussionId, setPosts]);
 
   return (
     <div className="mt-4">

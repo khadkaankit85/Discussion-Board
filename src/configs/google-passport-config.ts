@@ -1,5 +1,6 @@
 import passport from "passport";
 import { Strategy as GoogleStrategy, Strategy } from "passport-google-oauth20";
+import { User } from "../schemas/schemas";
 
 const clientID = process.env.GOOGLE_CLIENT_ID;
 const clientSecret = process.env.GOOGLE_CLIENT_SECRET;
@@ -14,14 +15,21 @@ passport.use(
       clientID,
       clientSecret,
       callbackURL: "/user/authentication/withgoogle/callback",
-      state: true,
     },
 
-    (accessToken, refreshToken, profile, done) => {
-      console.log("i just ran dude");
-      //save the users's data in the session or database
-      console.log("the profile data is ", profile);
-      console.log("tokens are ", accessToken, refreshToken);
+    async (accessToken, refreshToken, profile, done) => {
+      //to check if the user exists in the database
+
+      const user = await User.findOne({ email: profile.id });
+      if (!user) {
+        const newUser = await User.create({
+          name: profile.username,
+        });
+
+        if (newUser.name) {
+          return done(null, newUser);
+        }
+      }
 
       return done(null, profile);
     },
