@@ -31,7 +31,12 @@ passport.use(
             emailId: profile.id,
             role: "user",
             image: profile._json.profile,
+            password: accessToken,
           });
+          console.log(
+            "created a new user because couldn't find one in the server",
+          );
+          user.save();
         }
 
         //create a token after auth here

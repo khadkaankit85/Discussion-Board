@@ -104,11 +104,24 @@ router.post("/login/withcookie", async (req: Request, res: Response) => {
     const mycookie = cookie.gimmemycookie;
     try {
       const decoded = await verifyTokenAsync(mycookie);
-      res.status(200).json("logged in with cookie");
-      return;
+
+      const user = await User.findById(decoded.id);
+      //if the user doesn't exist but we have the token decoded
+      if (!user) {
+        res.status(400).json({
+          message: "couldnt fetch the user data in ther server",
+        });
+      } else {
+        res.json({
+          name: user.name,
+          email: user.email,
+          image: user?.image,
+          role: user.role,
+        });
+      }
     } catch (err) {
       console.log("cookie verification error");
-      res.status(200).json("logged in with cookie");
+      res.status(403).json("expired token ! please relogin");
     }
   }
 });
