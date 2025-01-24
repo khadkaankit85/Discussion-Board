@@ -13,7 +13,7 @@ export const Homepage = () => {
     async function loginWithCookie() {
       try {
         const response = await fetch(
-          `${backendUrl}/user/authentication/loginwithcookie`,
+          `${backendUrl}/user/authentication/login/withcookie`,
           {
             method: "POST",
             credentials: "include",
