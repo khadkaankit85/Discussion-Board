@@ -36,7 +36,7 @@ passport.use(
           console.log(
             "created a new user because couldn't find one in the server",
           );
-          user.save();
+          await user.save();
         }
 
         //create a token after auth here

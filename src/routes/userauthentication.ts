@@ -86,12 +86,15 @@ router.post(
   "/login/withusernameandpassword",
   async (req: Request, res: Response) => {
     const { email, password } = req.body;
-
-    const user = await User.findOne({ email, password });
-    if (!user) {
-      res.status(200).json("invalid credentials");
-    } else {
-      res.send({ data: JSON.stringify(user) });
+    try {
+      const user = await User.findOne({ email, password });
+      if (!user) {
+        res.status(200).json("invalid credentials");
+      } else {
+        res.send({ data: JSON.stringify(user) });
+      }
+    } catch {
+      res.status(500).json({ message: " internal server error: db" });
     }
   },
 );
