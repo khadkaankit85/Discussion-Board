@@ -7,6 +7,7 @@ import OTPVerification from "./pages/OTPverification";
 import { createContext, useState } from "react";
 import UserProfile from "./pages/UserProfilePage";
 import AuthChecker from "./components/AuthChecker";
+import NotFound from "./pages/NotFound";
 
 export default function App() {
   const [userInformation, setUserInformation] = useState(null);
@@ -32,6 +33,7 @@ export default function App() {
             element={<OTPVerification />}
           />
           <Route path="/signup" element={<SignupPage />} />
+          <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>
     </UserInformationContext.Provider>
