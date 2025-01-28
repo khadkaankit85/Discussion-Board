@@ -5,9 +5,11 @@ import { useNavigate } from "react-router-dom";
 const Protected = ({
   Children,
   role,
+  redirectTo,
 }: {
   Children: React.ComponentType;
   role: "admin" | "user" | "noauth";
+  redirectTo: string;
 }) => {
   const [isLoading, setIsLoading] = useState(true);
   const navigate = useNavigate();
@@ -34,7 +36,7 @@ const Protected = ({
         setIsLoading(false);
       } catch (error) {
         console.error("An error occurred during authentication:", error);
-        navigate("/login");
+        navigate(redirectTo);
       }
     }
 

@@ -7,11 +7,13 @@ import OTPVerification from "./pages/OTPverification";
 import UserProfile from "./pages/UserProfilePage";
 import AuthChecker from "./components/AuthChecker";
 import NotFound from "./pages/NotFound";
-import UserInformationProvider from "./Configs/Contexts";
+import { Userdata } from "./types/types";
 
 export default function App() {
   return (
-    <UserInformationProvider>
+    <UserInformationContext.Provider
+      value={{ userInformation, setUserInformation }}
+    >
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Homepage />} />
@@ -35,6 +37,6 @@ export default function App() {
           <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>
-    </UserInformationProvider>
+    </UserInformationContext.Provider>
   );
 }

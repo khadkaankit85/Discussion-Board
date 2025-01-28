@@ -8,3 +8,10 @@ export interface Discussion {
   title: string;
   body: string;
 }
+
+export interface Userdata {
+  name: string;
+  email: string;
+  image: string;
+  role: string;
+}
