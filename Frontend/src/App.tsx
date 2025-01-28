@@ -8,13 +8,19 @@ import UserProfile from "./pages/UserProfilePage";
 import AuthChecker from "./components/AuthChecker";
 import NotFound from "./pages/NotFound";
 import UserInformationProvider from "./Configs/UserInfoContext";
+import Protected from "./components/AuthChecker";
 
 export default function App() {
   return (
     <UserInformationProvider>
       <BrowserRouter>
         <Routes>
-          <Route path="/" element={<Homepage />} />
+          <Route
+            path="/"
+            element={
+              <Protected redirectTo="/login" Children={Homepage} role="user" />
+            }
+          />
           <Route path="/home" element={<Homepage />} />
           <Route
             path="/user/profile"
