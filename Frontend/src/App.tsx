@@ -7,7 +7,7 @@ import OTPVerification from "./pages/OTPverification";
 import UserProfile from "./pages/UserProfilePage";
 import AuthChecker from "./components/AuthChecker";
 import NotFound from "./pages/NotFound";
-import UserInformationProvider from "./Configs/Contexts";
+import UserInformationProvider from "./Configs/UserInfoContext";
 
 export default function App() {
   return (

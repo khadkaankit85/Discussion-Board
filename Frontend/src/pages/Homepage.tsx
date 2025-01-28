@@ -1,48 +1,11 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import DiscussionForm from "../components/Discussionform";
 import DiscussionList from "../components/Discussionlist";
-import { backendUrl } from "../../constants";
-import { useNavigate } from "react-router-dom";
 import { Discussion } from "../types/types";
 import Navbar from "../components/Navbar";
 
 export const Homepage = () => {
-  const [isLoading, setIsLoading] = useState(true);
-  const navigate = useNavigate();
-
-  useEffect(() => {
-    async function loginWithCookie() {
-      try {
-        const response = await fetch(
-          `${backendUrl}/user/authentication/login/withcookie`,
-          {
-            method: "POST",
-            credentials: "include",
-          },
-        );
-        if (!response.ok) {
-          console.error(
-            "Failed to authenticate with cookie:",
-            response.statusText,
-          );
-          navigate("/login");
-          return;
-        }
-        setIsLoading(false);
-      } catch (error) {
-        console.error("An error occurred during authentication:", error);
-        navigate("/login");
-      }
-    }
-
-    loginWithCookie();
-  }, [navigate]);
-
   const [discussions, setDiscussions] = useState<Discussion[]>([]);
-
-  if (isLoading) {
-    return <p></p>;
-  }
 
   return (
     <>

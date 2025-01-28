@@ -1,17 +1,6 @@
-import { createContext, useState, ReactNode } from "react";
+import { useState, ReactNode } from "react";
 import { Userdata } from "../types/types";
-
-interface UserInformationContextType {
-  userInformation: Userdata | undefined;
-  setUserInformation: React.Dispatch<
-    React.SetStateAction<Userdata | undefined>
-  >;
-}
-
-const UserInformationContext = createContext<
-  UserInformationContextType | undefined
->(undefined);
-
+import { UserInformationContext } from "./Contexts";
 interface ContextProviderProps {
   children: ReactNode;
 }
