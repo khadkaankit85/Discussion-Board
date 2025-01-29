@@ -118,7 +118,7 @@ router.post("/login/withcookie", async (req: Request, res: Response) => {
         res.json({
           name: user.name,
           email: user.email,
-          image: user?.image,
+          image: user.image,
           role: user.role,
         });
       }
@@ -129,4 +129,8 @@ router.post("/login/withcookie", async (req: Request, res: Response) => {
   }
 });
 
+router.post("/logout", (req: Request, res: Response) => {
+  res.clearCookie("gimmemycookie");
+  res.send(200).send({ message: "logged out" });
+});
 export default router;

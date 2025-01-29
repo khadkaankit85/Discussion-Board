@@ -26,7 +26,10 @@ const Protected = ({
       //if no auth is required, return the component
       setIsLoading(false);
     } else {
-      loginWithCookie();
+      if (!userContext.userInformation) {
+        console.log("logged in with cookie");
+        loginWithCookie();
+      }
     }
 
     async function loginWithCookie() {
@@ -51,6 +54,9 @@ const Protected = ({
 
         //if the user is logged in
         const userdata = await response.json();
+
+        //setting the user context after succesfull user validation
+        userContext?.setUserInformation({ ...userdata });
 
         //if the role matches
         if (role === userdata?.role) {

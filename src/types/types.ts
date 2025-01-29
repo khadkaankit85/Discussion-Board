@@ -1,6 +1,6 @@
 import { Types } from "mongoose";
 
-export interface userinfoPayload {
+export interface User {
   name: string;
   email: string;
   userid: string;

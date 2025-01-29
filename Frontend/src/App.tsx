@@ -21,7 +21,12 @@ export default function App() {
               <Protected redirectTo="/login" Children={Homepage} role="user" />
             }
           />
-          <Route path="/home" element={<Homepage />} />
+          <Route
+            path="/home"
+            element={
+              <Protected redirectTo="/login" Children={Homepage} role="user" />
+            }
+          />
           <Route
             path="/user/profile"
             element={
