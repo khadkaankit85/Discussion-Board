@@ -62,9 +62,95 @@ When a user clicks on **Login with Google**:
 
 This is my own work, please refer to the documentation of each library for references
 
-# Project Setup and API Documentation
+## Project Structure
 
-## > [!NOTE] Important Configuration
+```
+Frontend/
+├── public/                 # Static files (index.html, images, etc.)
+├── src/
+│   ├── assets/             # Images and other static assets
+│   ├── components/         # Reusable React components
+│   │   ├── AuthChecker.tsx
+│   │   ├── Discussionform.tsx
+│   │   ├── Discussionlist.tsx
+│   │   ├── Navbar.tsx
+│   │   ├── Postform.tsx
+│   │   └── Postlist.tsx
+│   ├── Configs/            # Configuration files (if any)
+│   ├── pages/              # Route-based page components
+│   │   ├── Homepage.tsx
+│   │   ├── Loginpage.tsx
+│   │   ├── NotFound.tsx
+│   │   ├── OTPverification.tsx
+│   │   ├── Signup.tsx
+│   │   └── UserProfilePage.tsx
+│   ├── styles/             # CSS and module stylesheets
+│   │   ├── Homepage.css
+│   │   ├── OTpverification.module.css
+│   │   └── Signuppage.module.css
+│   ├── types/              # TypeScript types and interfaces
+│   │   └── types.ts
+│   ├── App.tsx             # Main application component
+│   ├── index.css           # Global CSS
+│   ├── main.tsx            # Application entry point
+│   ├── toasts.ts          # Toast notification configurations
+│   └── vite-env.d.ts       # Vite-specific TypeScript declarations
+├── package.json            # NPM package configuration
+├── vite.config.ts          # Vite configuration file
+├── tailwind.config.js      # Tailwind CSS configuration
+├── tsconfig.json           # TypeScript configuration for the project
+└── ... (other configuration files)
+```
+
+# Project Components & Pages
+
+## Components
+
+The components in the `src/components/` directory are reusable UI elements:
+
+- **AuthChecker.tsx**  
+  Verifies user authentication and protects routes.
+
+- **Discussionform.tsx**  
+  Provides a form for creating new discussions.
+
+- **Discussionlist.tsx**  
+  Displays a list of discussions, including like/dislike functionality.
+
+- **Navbar.tsx**  
+  Contains the navigation bar and manages user login/logout.
+
+- **Postform.tsx**  
+  Offers a form for adding posts/comments to discussions.
+
+- **Postlist.tsx**  
+  Renders a list of posts/comments for a discussion.
+
+## Pages
+
+The `src/pages/` directory holds the main page components:
+
+- **Homepage.tsx**  
+  The landing page that displays all discussions and related information.
+
+- **Loginpage.tsx**  
+  Allows users to log in with options for cookie-based login and Google OAuth.
+
+- **Signup.tsx**  
+  The user registration page.
+
+- **NotFound.tsx**  
+  A fallback page for invalid routes (404 Not Found).
+
+- **OTPverification.tsx**  
+  A page for verifying OTP during user authentication.
+
+- **UserProfilePage.tsx**  
+  Displays the user's profile information and provides a logout option.
+
+# Project Setup and API Documentation - Backend
+
+## API Configuration
 
 > For development, make sure to add the following variable to your `.env` file in the project root.
 
