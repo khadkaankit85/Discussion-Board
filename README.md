@@ -1,3 +1,5 @@
+# Frontend
+
 # Project Setup and API Documentation
 
 ## > [!NOTE] Important Configuration
