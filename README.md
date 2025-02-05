@@ -1,4 +1,66 @@
-# Frontend
+# Discussion Board Application - Frontend
+
+This is the frontend of a **Discussion Board Application** built using React and TypeScript. The application allows users to create discussions, post comments, like/dislike discussions, and manage their profiles. It communicates with a backend API for data fetching and submission.
+
+## Features
+
+### 🔐 User Authentication
+
+- **Protected Routes:** Only authenticated users can access protected routes.
+- **Role-Based Access:** Supports roles such as `admin`, `user`, and `noauth`.
+- **Cookie-Based Login:** Automatic login using cookies.
+- **Google OAuth:** Login with Google option.
+
+### 💬 Discussion Management
+
+- **Create Discussions:** Users can create new discussions with a title and body.
+- **View Discussions:** Lists all available discussions.
+- **Like/Dislike:** Users can like or dislike discussions.
+
+### 📝 Post Management
+
+- **Add Posts:** Users can add posts (comments) to discussions.
+- **View Posts:** Displays posts related to each discussion.
+
+### 👥 User Profile
+
+- **Profile Display:** Shows user avatar, name, and email.
+- **Logout:** Option to logout from the application.
+
+## Screenshots
+
+### Homepage
+
+![Homepage](https://github.com/khadkaankit85/Discussion-Board/blob/master/Frontend/public/homepage.png?raw=true)
+
+### Login Page
+
+![Login Page](https://github.com/khadkaankit85/Discussion-Board/blob/master/Frontend/public/loginpage.png?raw=true)
+
+### Signup Page
+
+![Signup Page](https://github.com/khadkaankit85/Discussion-Board/blob/master/Frontend/public/signup.png?raw=true)
+
+### Not Found Page
+
+![Not Found](https://github.com/khadkaankit85/Discussion-Board/blob/master/Frontend/public/notfound.jpg?raw=true)
+
+### Login with Google
+
+When a user clicks on **Login with Google**:
+![Google Login](https://github.com/khadkaankit85/Discussion-Board/blob/master/Frontend/public/withgoogle1.jpg?raw=true)
+
+## Tech Stack
+
+- **React** with TypeScript
+- **React Router** for navigation
+- **Context API** for global state management
+- **Tailwind CSS** for styling
+- **Fetch API** for backend communication
+
+### Acknowledgements
+
+This is my own work, please refer to the documentation of each library for references
 
 # Project Setup and API Documentation
 
